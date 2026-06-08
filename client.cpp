@@ -1,10 +1,11 @@
-#include <iostream>
-#include <cstring>
-#include <winsock2.h>
-#include <thread>
+#include <iostream>//to use input output features
+#include <cstring>//to use string fns.
+#include <winsock2.h>//socket related fns like connect,recv etc
+#include <thread>//to use thread
 
-#pragma comment(lib, "ws2_32.lib")
-SOCKET clientSocket;
+#pragma comment(lib, "ws2_32.lib")//helps find the actual code for the winsock fns.
+
+SOCKET clientSocket;//SOCKET IS THE DATA TYPE
 
     void receiveMessages(){
 
@@ -26,10 +27,10 @@ std::cout << "Server says: " << buffer << "\n";
 
 int main() {
 
-    // Start Winsock
-    WSADATA wsaData;
+    // Start Winsock  // wsaData is the container to store info
+    WSADATA wsaData;//WSADATA=datatype, store info about winsock, like version supported,system status etc
 
-    if (WSAStartup(MAKEWORD(2,2), &wsaData) != 0) {
+    if (WSAStartup(MAKEWORD(2,2), &wsaData) != 0) {//c
         std::cout << "WSAStartup failed\n";
         return 1;
     }
@@ -47,11 +48,17 @@ int main() {
     // Define server address
     sockaddr_in serverAddress;
 
-    serverAddress.sin_family = AF_INET;
-    serverAddress.sin_port = htons(8080);
-    serverAddress.sin_addr.s_addr = inet_addr("127.0.0.1");
+    serverAddress.sin_family = AF_INET;//This address will use IPv4.
+    serverAddress.sin_port = htons(8080);//h=host,to,n=network,s=short,Convert 8080 from host format to network format.
+    
+    serverAddress.sin_addr.s_addr = inet_addr("127.0.0.1");//Convert text IP into a format Windows networking understands.
 
     // Connect to server
+//      Use clientSocket
+//      Connect to the destination
+//      stored inside serverAddress
+//      Read the entire structure
+//      using its size
     if(connect(clientSocket, (sockaddr*)&serverAddress, sizeof(serverAddress)) == SOCKET_ERROR) {
         std::cout << "Connection failed\n";
         return 1;
