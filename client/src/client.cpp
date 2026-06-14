@@ -1,3 +1,9 @@
+#include "../include/client.h"
+#include <iostream>
+#include <winsock2.h>
+#include <ws2tcpip.h>
+
+#pragma comment(lib, "ws2_32.lib")
 void startClient() {
 
     WSADATA wsData;
@@ -20,4 +26,11 @@ void startClient() {
     }
 
     std::cout << "Socket created successfully\n";
+
+    sockaddr_in serverHint{};
+
+serverHint.sin_family = AF_INET;
+serverHint.sin_port = htons(54000);
+
+inet_pton(AF_INET, "127.0.0.1", &serverHint.sin_addr);
 }
