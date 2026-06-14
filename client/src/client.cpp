@@ -33,4 +33,19 @@ serverHint.sin_family = AF_INET;
 serverHint.sin_port = htons(54000);
 
 inet_pton(AF_INET, "127.0.0.1", &serverHint.sin_addr);
+
+int connectResult = connect(
+    clientSocket,
+    (sockaddr*)&serverHint,
+    sizeof(serverHint)
+);
+
+if (connectResult == SOCKET_ERROR) {
+    std::cout << "Connection failed\n";
+    closesocket(clientSocket);
+    WSACleanup();
+    return;
+}
+
+std::cout << "Connected to server successfully!\n";
 }
