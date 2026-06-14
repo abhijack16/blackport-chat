@@ -1,8 +1,8 @@
-#include <iostream>
+#include "../include/client.h"
 
 int main() {
 
-    std::cout << "[BLACKPORT CLIENT]\n";
+    startClient();
 
     return 0;
 }
